@@ -1,3 +1,117 @@
+<?php 
+$menu = [
+	[
+		'url' => '/',
+		'title' => 'Home'
+	],
+	[
+		'url' => '/',
+		'title' => 'About',
+		'submenu' => [
+				[
+					'url' => '/',
+					'title' => 'About'
+				],
+				[
+					'url' => '/',
+					'title' => 'About'
+				],
+				[
+					'url' => '/',
+					'title' => 'About',
+					'submenu' => [
+						[
+							'url' => '/',
+							'title' => 'About'
+						],
+						[
+							'url' => '/',
+							'title' => 'About'
+						]
+					]
+				]
+		]
+	],
+	[
+		'url' => '/',
+		'title' => 'Project'
+	],
+	[
+		'url' => '/',
+		'title' => 'Portfolio'
+	]
+];
+
+$featuresTitle = 'Dolor consequat feugiat amet veroeros';
+$featuresSubTitle = 'Feugiat dolor nullam orci pretium phasellus justo';
+
+$featureList = [
+	[
+		'icon' => 'fa-comment',
+		'title' => 'Mattis velit diam vulputate',
+		'text' => 'Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.' 
+	],
+	[
+		'icon' => 'fa-refresh',
+		'title' => 'Lorem ipsum dolor sit veroeros',
+		'text' => 'Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.' 
+	],
+	[
+		'icon' => 'fa-picture-o',
+		'title' => 'Pretium phasellus justo lorem',
+		'text' => 'Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.' 
+	],
+	[
+		'icon' => 'fa-cog',
+		'title' => 'Tempus sed pretium orci',
+		'text' => 'Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.' 
+	],
+	[
+		'icon' => 'fa-wrench',
+		'title' => 'Aliquam consequat et feugiat',
+		'text' => 'Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.' 
+	],
+	[
+		'icon' => 'fa-check',
+		'title' => 'Dolore laoreet aliquam mattis',
+		'text' => 'Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.' 
+	]
+];
+
+$featureListLenght = count($featureList);
+
+$contact = [
+	[
+		'icon' => 'fa-home',
+		'title' => 'Mailing Address',
+		'text' => 'Untitled Corporation<br/>1234 Somewhere Rd #987<br/>Nashville, TN 00000-0000'
+	],
+	[	
+		'icon' => 'fa-comment',
+		'title' => 'Social',
+		'link' => [
+			'@untitled-corp',
+			'linkedin.com/untitled',
+			'facebook.com/untitled',
+		]
+	],
+	[
+		'icon' => 'fa-envelope',
+		'title' => 'Email',
+		'link' => [
+			'info@untitled.tld'
+		]
+	],
+	[
+		'icon' => 'fa-phone',
+		'title' => 'Phone',
+		'text' => '(000) 555-0000'
+	]
+];
+
+$contactLenght = count($contact);
+
+?>
 <!DOCTYPE HTML>
 <!--
 	Escape Velocity by HTML5 UP
@@ -29,29 +143,31 @@
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
-									<li class="current"><a href="index.html">Home</a></li>
-									<li>
-										<a href="#">Dropdown</a>
-										<ul>
-											<li><a href="#">Lorem ipsum</a></li>
-											<li><a href="#">Magna veroeros</a></li>
-											<li><a href="#">Etiam nisl</a></li>
-											<li>
-												<a href="#">Sed consequat</a>
+
+									<?php foreach ($menu as $item): ?>
+										<li>
+											<a href="<?=$item['url']?>"> <?=$item['title']?> </a>
+											<?php if(isset($item['submenu']) and !empty($item['submenu'])):?>
 												<ul>
-													<li><a href="#">Lorem dolor</a></li>
-													<li><a href="#">Amet consequat</a></li>
-													<li><a href="#">Magna phasellus</a></li>
-													<li><a href="#">Etiam nisl</a></li>
-													<li><a href="#">Sed feugiat</a></li>
+													<?php foreach ($item['submenu'] as $subitem): ?>
+														<li>
+															<a href="<?=$subitem['url']?>"> <?=$subitem['title']?> </a>
+															<?php if(isset($subitem['submenu']) and !empty($subitem['submenu'])):?>
+																<ul>
+																	<?php foreach ($subitem['submenu'] as $subitem2): ?>
+																		<li>
+																			<a href="<?=$subitem2['url']?>"> <?=$subitem2['title']?> </a>
+																		</li>
+																	<?php endforeach ?>
+																</ul>
+															<?php endif ?>
+														</li>
+													<?php endforeach ?>
 												</ul>
-											</li>
-											<li><a href="#">Nisl tempus</a></li>
-										</ul>
-									</li>
-									<li><a href="left-sidebar.html">Left Sidebar</a></li>
-									<li><a href="right-sidebar.html">Right Sidebar</a></li>
-									<li><a href="no-sidebar.html">No Sidebar</a></li>
+											<?php endif ?>	
+										</li>
+									<?php endforeach ?>
+
 								</ul>
 							</nav>
 
@@ -89,53 +205,29 @@
 						<!-- Features -->
 							<section id="features">
 								<header class="style1">
-									<h2>Dolor consequat feugiat amet veroeros</h2>
-									<p>Feugiat dolor nullam orci pretium phasellus justo</p>
+									<h2><?= $featuresTitle ?></h2>
+									<p><?= $featuresSubTitle ?></p>
 								</header>
 								<div class="feature-list">
-									<div class="row">
+
+									<?php for($i = 0; $i < $featureListLenght; $i++): ?>
+												
+										<?php if($i % 2 == 0): ?>
+											<div class="row">
+										<?php endif ?>
+
 										<div class="6u 12u(mobile)">
 											<section>
-												<h3 class="icon fa-comment">Mattis velit diam vulputate</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.</p>
+												<h3 class="icon <?= $featureList[$i]['icon'] ?>"><?= $featureList[$i]['title'] ?></h3>
+												<p><?= $featureList[$i]['text'] ?></p>
 											</section>
 										</div>
-										<div class="6u 12u(mobile)">
-											<section>
-												<h3 class="icon fa-refresh">Lorem ipsum dolor sit veroeros</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.</p>
-											</section>
-										</div>
-									</div>
-									<div class="row">
-										<div class="6u 12u(mobile)">
-											<section>
-												<h3 class="icon fa-picture-o">Pretium phasellus justo lorem</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.</p>
-											</section>
-										</div>
-										<div class="6u 12u(mobile)">
-											<section>
-												<h3 class="icon fa-cog">Tempus sed pretium orci</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.</p>
-											</section>
-										</div>
-									</div>
-									<div class="row">
-										<div class="6u 12u(mobile)">
-											<section>
-												<h3 class="icon fa-wrench">Aliquam consequat et feugiat</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.</p>
-											</section>
-										</div>
-										<div class="6u 12u(mobile)">
-											<section>
-												<h3 class="icon fa-check">Dolore laoreet aliquam mattis</h3>
-												<p>Eget mattis at, laoreet vel et velit aliquam diam ante, aliquet sit amet vulputate. Eget mattis at, laoreet vel velit lorem.</p>
-											</section>
-										</div>
-									</div>
-								</div>
+
+										<?php if(!($i % 2 == 0) OR $i+1 == $featureListLenght): ?>
+											</div>
+										<?php endif ?>
+									<?php endfor ?>
+
 								<ul class="actions actions-centered">
 									<li><a href="#" class="button style1 big">Get Started</a></li>
 									<li><a href="#" class="button style2 big">More Info</a></li>
@@ -231,48 +323,36 @@
 
 								<!-- Contact -->
 									<section class="feature-list small">
-										<div class="row">
-											<div class="6u 12u(mobile)">
-												<section>
-													<h3 class="icon fa-home">Mailing Address</h3>
-													<p>
-														Untitled Corporation<br />
-														1234 Somewhere Rd #987<br />
-														Nashville, TN 00000-0000
-													</p>
-												</section>
-											</div>
-											<div class="6u 12u(mobile)">
-												<section>
-													<h3 class="icon fa-comment">Social</h3>
-													<p>
-														<a href="#">@untitled-corp</a><br />
-														<a href="#">linkedin.com/untitled</a><br />
-														<a href="#">facebook.com/untitled</a>
-													</p>
-												</section>
-											</div>
-										</div>
-										<div class="row">
-											<div class="6u 12u(mobile)">
-												<section>
-													<h3 class="icon fa-envelope">Email</h3>
-													<p>
-														<a href="#">info@untitled.tld</a>
-													</p>
-												</section>
-											</div>
-											<div class="6u 12u(mobile)">
-												<section>
-													<h3 class="icon fa-phone">Phone</h3>
-													<p>
-														(000) 555-0000
-													</p>
-												</section>
-											</div>
-										</div>
-									</section>
+										<?php for($i = 0; $i < $contactLenght; $i++): ?>
+													
+											<?php if($i % 2 == 0): ?>
+												<div class="row">
+											<?php endif ?>
 
+											<div class="6u 12u(mobile)">
+													<section>
+														<h3 class="icon <?= $contact[$i]['icon'] ?>"><?= $contact[$i]['title'] ?></h3>
+														<p>
+															<?php if (isset($contact[$i]['link']) and !empty($contact[$i]['link'])): ?>
+																<?php foreach ($contact[$i]['link'] as $link): ?>
+																	<a href="#"><?=$link?></a><br />
+																<?php endforeach ?>
+															<?php endif ?>
+
+															<?php 
+																if(isset($contact[$i]['text']) and !empty($contact[$i]['text'])){
+																	echo $contact[$i]['text'];
+																}
+															?>
+														</p>
+													</section>
+												</div>
+
+											<?php if(!($i % 2 == 0) OR $i+1 == $contactLenght): ?>
+												</div>
+											<?php endif ?>
+										<?php endfor ?>
+									</section>
 							</div>
 						</div>
 						<hr />
