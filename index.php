@@ -1,4 +1,6 @@
 <?php 
+require 'function.php';
+
 $menu = [
 	[
 		'url' => '/',
